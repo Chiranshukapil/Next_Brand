@@ -5,14 +5,10 @@ import PricingSection from './Components/PricingSection.jsx'
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        
-        <Route path="/pricing" element={<PricingSection />} />
-
-      </Routes>
-    </Router>
+    <>
+      <Navbar/>
+      <PricingSection/>
+    </>
   )
 }
 

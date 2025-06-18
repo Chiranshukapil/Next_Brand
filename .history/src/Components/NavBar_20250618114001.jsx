@@ -29,8 +29,8 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
   return (
-    <nav className="sticky top-0 z-50 bg-gradient-to-br from-gray-900 via-gray-950 to-indigo-950 backdrop-blur-md bg-opacity-80 border-b border-indigo-800/30 shadow-lg flex justify-between items-center md:px-6 py-3">
-      
+    <nav className="navbar shadow-md sticky top-0 z-50 backdrop-blur-md bg-opacity-90 transition-all duration-300 flex justify-between items-center">
+      {/* Brand/Logo */}
       <div className="navbar-start">
         <Link
           to="/"

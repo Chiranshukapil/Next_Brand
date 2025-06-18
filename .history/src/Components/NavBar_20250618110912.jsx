@@ -11,6 +11,7 @@ const navLinks = [
     dropdown: [
       { name: "Overview", href: "/product/overview" },
       { name: "Features", href: "/product/features" },
+      { name: "Pricing", href: "/pricing" },
     ],
   },
   {
@@ -29,8 +30,8 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
   return (
-    <nav className="sticky top-0 z-50 bg-gradient-to-br from-gray-900 via-gray-950 to-indigo-950 backdrop-blur-md bg-opacity-80 border-b border-indigo-800/30 shadow-lg flex justify-between items-center md:px-6 py-3">
-      
+    <nav className="navbar shadow-md sticky top-0 z-50 backdrop-blur-md bg-opacity-90 transition-all duration-300 flex justify-between items-center">
+      {/* Brand/Logo */}
       <div className="navbar-start">
         <Link
           to="/"
@@ -95,6 +96,7 @@ export default function Navbar() {
         </ul>
       </div>
 
+      {/* Right Side: CTA + Mobile Menu Button */}
       <div className="navbar-end flex items-center">
         <Link
           to="/get-started"
@@ -114,6 +116,7 @@ export default function Navbar() {
           )}
         </button>
 
+        {/* Mobile Menu */}
         <div
           className={`absolute top-full right-2 left-2 z-40 md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white rounded-box shadow-lg ${
             menuOpen ? "max-h-96" : "max-h-0"
@@ -131,6 +134,7 @@ export default function Navbar() {
                         onClick={() => setMenuOpen(false)}
                       >
                         {link.name}
+                        <ChevronDown className="h-4 w-4" />
                       </Link>
                     </summary>
                     <ul className="p-2">

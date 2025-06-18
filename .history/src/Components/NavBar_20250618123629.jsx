@@ -43,7 +43,6 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* Desktop Menu */}
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1">
           {navLinks.map((link, index) => (
