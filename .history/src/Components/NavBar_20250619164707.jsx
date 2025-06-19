@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 
@@ -24,6 +24,21 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(null);
+
+  // Close dropdown when clicking outside (desktop only)
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (!e.target.closest(".nav-dropdown-parent") && !e.target.closest(".nav-dropdown-menu")) {
+        setDropdownOpen(null);
+      }
+    }
+    if (dropdownOpen !== null) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dropdownOpen]);
 
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-br from-gray-900 via-gray-950 to-indigo-950 backdrop-blur-md bg-opacity-80 border-b border-indigo-800/30 shadow-lg flex justify-between items-center md:px-6 py-3">
@@ -125,6 +140,7 @@ export default function Navbar() {
                     <summary className="text-base cursor-pointer flex items-center justify-between text-gray-800">
                       <span className="flex items-center gap-1">
                         {link.name}
+                        <ChevronDown className="h-4 w-4" />
                       </span>
                     </summary>
                     <ul className="p-2">

@@ -25,6 +25,22 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
+  // Optional: Close dropdown when clicking outside
+  React.useEffect(() => {
+    function handleClickOutside(e) {
+      // Only close if click is outside any dropdown
+      if (!e.target.closest(".nav-dropdown-parent")) {
+        setDropdownOpen(null);
+      }
+    }
+    if (dropdownOpen !== null) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dropdownOpen]);
+
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-br from-gray-900 via-gray-950 to-indigo-950 backdrop-blur-md bg-opacity-80 border-b border-indigo-800/30 shadow-lg flex justify-between items-center md:px-6 py-3">
       {/* Logo */}
@@ -47,7 +63,6 @@ export default function Navbar() {
             <li key={link.name} className="relative">
               {link.dropdown ? (
                 <>
-                  {/* Dropdown parent: toggle menu, no navigation */}
                   <button
                     type="button"
                     className="nav-dropdown-parent text-base font-medium flex items-center gap-1 cursor-pointer text-white/80 hover:text-indigo-500 transition-colors focus:outline-none"
@@ -61,7 +76,7 @@ export default function Navbar() {
                     <ChevronDown className="h-4 w-4" />
                   </button>
                   {dropdownOpen === index && (
-                    <ul className="nav-dropdown-menu absolute top-full left-0 mt-1 bg-gray-200 shadow-lg rounded-box p-2 w-48 z-50 animate-fade-in">
+                    <ul className="absolute top-full left-0 mt-1 bg-gray-200 shadow-lg rounded-box p-2 w-48 z-50 animate-fade-in">
                       {link.dropdown.map((item) => (
                         <li key={item.name}>
                           <Link
@@ -118,14 +133,12 @@ export default function Navbar() {
           }`}
         >
           <ul tabIndex={0} className="menu menu-sm p-2 w-full">
-            {navLinks.map((link) => (
+            {navLinks.map((link, idx) => (
               <li key={link.name}>
                 {link.dropdown ? (
                   <details>
                     <summary className="text-base cursor-pointer flex items-center justify-between text-gray-800">
-                      <span className="flex items-center gap-1">
-                        {link.name}
-                      </span>
+                      {link.name}
                     </summary>
                     <ul className="p-2">
                       {link.dropdown.map((item) => (

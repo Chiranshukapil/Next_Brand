@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 
@@ -25,6 +25,21 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (!e.target.closest(".nav-dropdown-parent")) {
+        setDropdownOpen(null);
+      }
+    }
+    if (dropdownOpen !== null) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dropdownOpen]);
+
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-br from-gray-900 via-gray-950 to-indigo-950 backdrop-blur-md bg-opacity-80 border-b border-indigo-800/30 shadow-lg flex justify-between items-center md:px-6 py-3">
       {/* Logo */}
@@ -47,21 +62,37 @@ export default function Navbar() {
             <li key={link.name} className="relative">
               {link.dropdown ? (
                 <>
-                  {/* Dropdown parent: toggle menu, no navigation */}
-                  <button
-                    type="button"
-                    className="nav-dropdown-parent text-base font-medium flex items-center gap-1 cursor-pointer text-white/80 hover:text-indigo-500 transition-colors focus:outline-none"
-                    aria-haspopup="true"
-                    aria-expanded={dropdownOpen === index}
-                    onClick={() =>
-                      setDropdownOpen(dropdownOpen === index ? null : index)
-                    }
-                  >
-                    {link.name}
-                    <ChevronDown className="h-4 w-4" />
-                  </button>
+                  {/* For Product and Solutions, disable routing on parent click */}
+                  {(link.name === "Product" || link.name === "Solutions") ? (
+                    <button
+                      type="button"
+                      className="nav-dropdown-parent text-base font-medium flex items-center gap-1 cursor-pointer text-white/80 hover:text-indigo-500 transition-colors focus:outline-none"
+                      aria-haspopup="true"
+                      aria-expanded={dropdownOpen === index}
+                      onClick={() =>
+                        setDropdownOpen(dropdownOpen === index ? null : index)
+                      }
+                    >
+                      {link.name}
+                      <ChevronDown className="h-4 w-4" />
+                    </button>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="nav-dropdown-parent text-base font-medium flex items-center gap-1 cursor-pointer text-white/80 hover:text-indigo-500 transition-colors"
+                      aria-haspopup="true"
+                      aria-expanded={dropdownOpen === index}
+                      onClick={() =>
+                        setDropdownOpen(dropdownOpen === index ? null : index)
+                      }
+                    >
+                      {link.name}
+                      <ChevronDown className="h-4 w-4" />
+                    </Link>
+                  )}
+
                   {dropdownOpen === index && (
-                    <ul className="nav-dropdown-menu absolute top-full left-0 mt-1 bg-gray-200 shadow-lg rounded-box p-2 w-48 z-50 animate-fade-in">
+                    <ul className="absolute top-full left-0 mt-1 bg-gray-200 shadow-lg rounded-box p-2 w-48 z-50 animate-fade-in">
                       {link.dropdown.map((item) => (
                         <li key={item.name}>
                           <Link

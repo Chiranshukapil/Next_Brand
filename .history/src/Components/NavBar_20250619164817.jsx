@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 
@@ -25,6 +25,20 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (!e.target.closest(".nav-dropdown-parent") && !e.target.closest(".nav-dropdown-menu")) {
+        setDropdownOpen(null);
+      }
+    }
+    if (dropdownOpen !== null) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dropdownOpen]);
+
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-br from-gray-900 via-gray-950 to-indigo-950 backdrop-blur-md bg-opacity-80 border-b border-indigo-800/30 shadow-lg flex justify-between items-center md:px-6 py-3">
       {/* Logo */}
@@ -40,14 +54,12 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* Desktop Menu */}
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1">
           {navLinks.map((link, index) => (
             <li key={link.name} className="relative">
               {link.dropdown ? (
                 <>
-                  {/* Dropdown parent: toggle menu, no navigation */}
                   <button
                     type="button"
                     className="nav-dropdown-parent text-base font-medium flex items-center gap-1 cursor-pointer text-white/80 hover:text-indigo-500 transition-colors focus:outline-none"
@@ -90,7 +102,6 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* Right Side Buttons */}
       <div className="navbar-end flex items-center">
         <Link
           to="/get-started"
@@ -98,7 +109,7 @@ export default function Navbar() {
         >
           Get Started
         </Link>
-        {/* Mobile menu toggle */}
+
         <button
           aria-label="Toggle menu"
           className="btn btn-ghost md:hidden ml-2"
@@ -111,7 +122,6 @@ export default function Navbar() {
           )}
         </button>
 
-        {/* Mobile Drawer */}
         <div
           className={`absolute top-full right-2 left-2 z-40 md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white rounded-box shadow-lg ${
             menuOpen ? "max-h-96" : "max-h-0"
@@ -125,6 +135,7 @@ export default function Navbar() {
                     <summary className="text-base cursor-pointer flex items-center justify-between text-gray-800">
                       <span className="flex items-center gap-1">
                         {link.name}
+                        <ChevronDown className="h-4 w-4" />
                       </span>
                     </summary>
                     <ul className="p-2">

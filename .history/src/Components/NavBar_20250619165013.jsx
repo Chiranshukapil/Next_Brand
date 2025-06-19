@@ -125,6 +125,7 @@ export default function Navbar() {
                     <summary className="text-base cursor-pointer flex items-center justify-between text-gray-800">
                       <span className="flex items-center gap-1">
                         {link.name}
+                        <ChevronDown className="h-4 w-4" />
                       </span>
                     </summary>
                     <ul className="p-2">
