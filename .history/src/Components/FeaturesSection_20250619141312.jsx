@@ -94,7 +94,7 @@ export default function FeaturesSection() {
           </p>
           <motion.a
             href="/get-started"
-            className="inline-block bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:cursor-pointer hover:shadow-indigo-500/50 transition-all duration-300"
+            className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg transition"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -103,7 +103,7 @@ export default function FeaturesSection() {
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 hover:cursor-pointer pt-8 gap-4 sm:gap-6 md:gap-8 w-full"
+          className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 hover:cursor-pointer pt-4 gap-4 sm:gap-6 md:gap-8 w-full"
           variants={containerVariants}
           initial="hidden"
           animate="visible"

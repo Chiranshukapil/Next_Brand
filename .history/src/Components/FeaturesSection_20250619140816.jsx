@@ -10,6 +10,39 @@ import {
   Smartphone 
 } from "lucide-react";
 
+function HeroSection() {
+  return (
+    <section className="relative w-full max-w-7xl mx-auto pt-8 pb-16 px-4 sm:px-6 md:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="text-center"
+      >
+        <div className="flex justify-center mb-4">
+          <span className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-full shadow-lg">
+            <Rocket className="w-8 h-8 text-white" />
+          </span>
+        </div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 drop-shadow-lg">
+          Supercharge Your Workflow
+        </h1>
+        <p className="text-lg sm:text-xl md:text-2xl text-indigo-100 mb-6 max-w-2xl mx-auto">
+          NextBrand helps teams move faster, collaborate smarter, and achieve more with powerful, modern tools.
+        </p>
+        <motion.a
+          href="/get-started"
+          className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg transition"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Get Started Free
+        </motion.a>
+      </motion.div>
+    </section>
+  );
+}
+
 const features = [
   {
     icon: <Zap className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />,
@@ -72,38 +105,29 @@ export default function FeaturesSection() {
   return (
     <section className="relative py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-gray-900 via-gray-950 to-indigo-950 min-h-screen overflow-x-hidden">
 
+      
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-indigo-800 opacity-20 blur-3xl pointer-events-none"></div>
-
+      <HeroSection />
+      
       <div className="relative z-10 max-w-6xl mx-auto w-full">
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
+        
+        {/* <motion.div 
+          className="text-center mb-8 sm:mb-12 md:mb-16"
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-center"
+          transition={{ duration: 0.8 }}
         >
-          <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-full shadow-lg">
-              <Rocket className="w-8 h-8 text-white" />
-            </span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 drop-shadow-lg">
-            Supercharge Your Workflow
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-indigo-100 mb-6 max-w-2xl mx-auto">
-            NextBrand helps teams move faster, collaborate smarter, and achieve more with powerful, modern tools.
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 drop-shadow-lg px-2">
+            Powerful Features
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-indigo-100 max-w-3xl mx-auto px-4">
+            Everything you need to streamline your workflow and boost productivity. 
+            Built with modern technology and designed for scale.
           </p>
-          <motion.a
-            href="/get-started"
-            className="inline-block bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:cursor-pointer hover:shadow-indigo-500/50 transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Get Started Free
-          </motion.a>
-        </motion.div>
+        </motion.div> */}
 
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 hover:cursor-pointer pt-8 gap-4 sm:gap-6 md:gap-8 w-full"
+          className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 w-full"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
